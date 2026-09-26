@@ -24,6 +24,7 @@ from tests.unit.test_analytics_queries import TestAnalyticsQueries
 from tests.unit.test_databricks_notebooks import TestDatabricksCompatibility
 from tests.unit.test_orchestrator import TestPipelineOrchestrator
 from tests.unit.test_docker import TestDockerConfiguration
+from tests.integration.test_end_to_end_pipeline import TestEndToEndLakehousePipeline
 
 
 def main():
@@ -42,6 +43,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestDatabricksCompatibility))
     suite.addTests(loader.loadTestsFromTestCase(TestPipelineOrchestrator))
     suite.addTests(loader.loadTestsFromTestCase(TestDockerConfiguration))
+    suite.addTests(loader.loadTestsFromTestCase(TestEndToEndLakehousePipeline))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)

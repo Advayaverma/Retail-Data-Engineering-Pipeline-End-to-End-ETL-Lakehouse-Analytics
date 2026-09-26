@@ -1,21 +1,21 @@
 # Pipeline Execution Summary Report
 
-**Run ID:** `RUN-20260926165126`  
-**Execution Timestamp:** `2026-09-26T16:51:55.650213+00:00`  
+**Run ID:** `INTEGRATION-TEST-RUN`  
+**Execution Timestamp:** `2026-09-26T17:03:21.799213+00:00`  
 **Overall Pipeline Status:** **SUCCESS**  
-**Total Pipeline Wall Clock Time:** **28.70s**  
+**Total Pipeline Wall Clock Time:** **23.81s**  
 
 ## Stage Breakdown
 
 | Stage | Status | Duration (seconds) |
 |---|---|---|
 | Bronze Ingestion | SUCCESS | 9.47s |
-| Data Quality & Quarantine | SUCCESS | 2.49s |
-| Silver Transformation | SUCCESS | 5.65s |
-| Incremental Delta MERGE | SUCCESS | 4.42s |
-| Gold Star Schema & SCD2 | SUCCESS | 2.51s |
-| Relational DW Load | SUCCESS | 1.62s |
-| Analytics Reporting | SUCCESS | 2.53s |
+| Data Quality & Quarantine | SUCCESS | 1.86s |
+| Silver Transformation | SUCCESS | 4.28s |
+| Incremental Delta MERGE | SUCCESS | 3.09s |
+| Gold Star Schema & SCD2 | SUCCESS | 1.82s |
+| Relational DW Load | SUCCESS | 1.2s |
+| Analytics Reporting | SUCCESS | 2.09s |
 
 ## Architecture Lineage
 ```
