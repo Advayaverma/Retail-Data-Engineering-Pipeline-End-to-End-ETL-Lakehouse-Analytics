@@ -24,6 +24,8 @@ COPY pyspark/ /app/pyspark/
 COPY sql/ /app/sql/
 COPY config/ /app/config/
 COPY scripts/ /app/scripts/
+COPY notebooks/ /app/notebooks/
+COPY docs/ /app/docs/
 COPY tests/ /app/tests/
 
 ENV PYTHONPATH=/app:/app/src

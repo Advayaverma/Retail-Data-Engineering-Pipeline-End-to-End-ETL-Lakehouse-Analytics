@@ -23,6 +23,7 @@ from tests.unit.test_star_schema_scd2 import TestStarSchemaAndSCD2
 from tests.unit.test_analytics_queries import TestAnalyticsQueries
 from tests.unit.test_databricks_notebooks import TestDatabricksCompatibility
 from tests.unit.test_orchestrator import TestPipelineOrchestrator
+from tests.unit.test_docker import TestDockerConfiguration
 
 
 def main():
@@ -40,6 +41,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestAnalyticsQueries))
     suite.addTests(loader.loadTestsFromTestCase(TestDatabricksCompatibility))
     suite.addTests(loader.loadTestsFromTestCase(TestPipelineOrchestrator))
+    suite.addTests(loader.loadTestsFromTestCase(TestDockerConfiguration))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
