@@ -1,0 +1,45 @@
+pipeline:
+  name: "retail-data-engineering-pipeline"
+  version: "1.0.0"
+  target_role: "Celebal Technologies Data Engineer"
+  environment: "local"
+
+storage:
+  raw_dir: "data/raw"
+  bronze_dir: "data/bronze"
+  silver_dir: "data/silver"
+  gold_dir: "data/gold"
+  quarantine_dir: "data/quarantine"
+
+sources:
+  transactions:
+    file_name: "transactions.csv"
+    batch_size: 100000
+  customers:
+    table_name: "customers"
+    file_name: "customers.csv"
+  products:
+    file_name: "products.csv"
+  stores:
+    file_name: "stores.csv"
+  exchange_rates:
+    api_endpoint: "http://localhost:8000/api/v1/rates"
+    base_currency: "USD"
+
+data_quality:
+  strict_mode: false
+  max_error_threshold_pct: 5.0
+  quarantine_on_failure: true
+
+spark:
+  app_name: "RetailLakehouseETL"
+  master: "local[*]"
+  driver_memory: "2g"
+  sql_shuffle_partitions: "4"
+  delta_log_store: "io.delta.storage.CloseableIterator"
+
+database:
+  host: "localhost"
+  port: 5432
+  name: "retail_dw"
+  user: "retail_admin"
