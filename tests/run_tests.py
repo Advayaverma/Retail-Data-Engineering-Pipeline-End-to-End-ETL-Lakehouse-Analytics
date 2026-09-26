@@ -18,6 +18,7 @@ from tests.unit.test_ingestion import TestIngestionEngine
 from tests.unit.test_postgres_sql import TestPostgresAndSQL
 from tests.unit.test_data_quality import TestDataQualityFramework
 from tests.unit.test_transformations import TestTransformations
+from tests.unit.test_delta_lake import TestDeltaLakeEngine
 
 
 def main():
@@ -30,6 +31,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestPostgresAndSQL))
     suite.addTests(loader.loadTestsFromTestCase(TestDataQualityFramework))
     suite.addTests(loader.loadTestsFromTestCase(TestTransformations))
+    suite.addTests(loader.loadTestsFromTestCase(TestDeltaLakeEngine))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
