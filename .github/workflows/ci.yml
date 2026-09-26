@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Lakehouse CI/CD Pipeline
 
 on:
   push:
@@ -7,13 +7,70 @@ on:
     branches: [ main, master ]
 
 jobs:
-  lint-and-test:
+  code-quality-and-lint:
+    name: Code Quality & Linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Syntax & Undefined Symbol Checks (Flake8)
+        run: |
+          flake8 src tests scripts notebooks --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Code Style & Complexity Warnings
+        run: |
+          flake8 src tests scripts --count --exit-zero --max-complexity=15 --max-line-length=120 --statistics
+
+  test-suite:
+    name: Unit & Integration Test Suite
+    needs: code-quality-and-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Set up OpenJDK 17 (PySpark Engine)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Master Test Runner (70 Tests)
+        run: |
+          python tests/run_tests.py
+
+  pipeline-e2e-dryrun:
+    name: End-to-End Pipeline Execution
+    needs: test-suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -30,19 +87,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Lint with Flake8
+      - name: Run Master Lakehouse Pipeline
         run: |
-          # Stop build if there are Python syntax errors or undefined names
-          flake8 src tests --count --select=E9,F63,F7,F82 --show-source --statistics
-          # Exit-zero treats all errors as warnings. Max line length 120
-          flake8 src tests --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+          python scripts/run_pipeline.py
 
-      - name: Run Unit Tests
-        run: |
-          pytest tests/unit/ -v
+      - name: Archive Pipeline Execution Summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-execution-summary
+          path: docs/pipeline_execution_summary.md
 
-  build-docker:
-    needs: lint-and-test
+  build-container:
+    name: Docker Image Build & Validation
+    needs: pipeline-e2e-dryrun
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -51,7 +108,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker Image
+      - name: Build Docker Container
         uses: docker/build-push-action@v5
         with:
           context: .
