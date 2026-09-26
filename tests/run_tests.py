@@ -19,6 +19,7 @@ from tests.unit.test_postgres_sql import TestPostgresAndSQL
 from tests.unit.test_data_quality import TestDataQualityFramework
 from tests.unit.test_transformations import TestTransformations
 from tests.unit.test_delta_lake import TestDeltaLakeEngine
+from tests.unit.test_star_schema_scd2 import TestStarSchemaAndSCD2
 
 
 def main():
@@ -32,6 +33,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestDataQualityFramework))
     suite.addTests(loader.loadTestsFromTestCase(TestTransformations))
     suite.addTests(loader.loadTestsFromTestCase(TestDeltaLakeEngine))
+    suite.addTests(loader.loadTestsFromTestCase(TestStarSchemaAndSCD2))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
