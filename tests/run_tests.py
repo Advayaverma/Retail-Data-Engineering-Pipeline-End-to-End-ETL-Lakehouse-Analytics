@@ -15,6 +15,7 @@ if PROJECT_ROOT not in sys.path:
 from tests.unit.test_foundation import TestProjectFoundation
 from tests.unit.test_data_generation import TestDataGeneration
 from tests.unit.test_ingestion import TestIngestionEngine
+from tests.unit.test_postgres_sql import TestPostgresAndSQL
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestProjectFoundation))
     suite.addTests(loader.loadTestsFromTestCase(TestDataGeneration))
     suite.addTests(loader.loadTestsFromTestCase(TestIngestionEngine))
+    suite.addTests(loader.loadTestsFromTestCase(TestPostgresAndSQL))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)

@@ -71,6 +71,7 @@ htmlcov/
 .tox/
 
 # Local data files (ignore actual data payloads, keep directory .gitkeep)
+data/*.db
 data/raw/*
 !data/raw/.gitkeep
 data/bronze/*
