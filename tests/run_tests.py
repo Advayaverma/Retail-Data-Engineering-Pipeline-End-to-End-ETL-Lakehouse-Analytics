@@ -26,6 +26,7 @@ from tests.unit.test_orchestrator import TestPipelineOrchestrator
 from tests.unit.test_docker import TestDockerConfiguration
 from tests.integration.test_end_to_end_pipeline import TestEndToEndLakehousePipeline
 from tests.unit.test_ci_cd import TestCICDPipelineWorkflow
+from tests.unit.test_azure_cloud import TestAzureCloudArchitecture
 
 
 def main():
@@ -46,6 +47,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestDockerConfiguration))
     suite.addTests(loader.loadTestsFromTestCase(TestEndToEndLakehousePipeline))
     suite.addTests(loader.loadTestsFromTestCase(TestCICDPipelineWorkflow))
+    suite.addTests(loader.loadTestsFromTestCase(TestAzureCloudArchitecture))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
