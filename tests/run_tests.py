@@ -22,6 +22,7 @@ from tests.unit.test_delta_lake import TestDeltaLakeEngine
 from tests.unit.test_star_schema_scd2 import TestStarSchemaAndSCD2
 from tests.unit.test_analytics_queries import TestAnalyticsQueries
 from tests.unit.test_databricks_notebooks import TestDatabricksCompatibility
+from tests.unit.test_orchestrator import TestPipelineOrchestrator
 
 
 def main():
@@ -38,6 +39,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestStarSchemaAndSCD2))
     suite.addTests(loader.loadTestsFromTestCase(TestAnalyticsQueries))
     suite.addTests(loader.loadTestsFromTestCase(TestDatabricksCompatibility))
+    suite.addTests(loader.loadTestsFromTestCase(TestPipelineOrchestrator))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
