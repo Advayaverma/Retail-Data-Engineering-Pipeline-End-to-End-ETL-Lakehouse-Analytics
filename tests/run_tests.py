@@ -16,6 +16,7 @@ from tests.unit.test_foundation import TestProjectFoundation
 from tests.unit.test_data_generation import TestDataGeneration
 from tests.unit.test_ingestion import TestIngestionEngine
 from tests.unit.test_postgres_sql import TestPostgresAndSQL
+from tests.unit.test_data_quality import TestDataQualityFramework
 
 
 def main():
@@ -26,6 +27,7 @@ def main():
     suite.addTests(loader.loadTestsFromTestCase(TestDataGeneration))
     suite.addTests(loader.loadTestsFromTestCase(TestIngestionEngine))
     suite.addTests(loader.loadTestsFromTestCase(TestPostgresAndSQL))
+    suite.addTests(loader.loadTestsFromTestCase(TestDataQualityFramework))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
