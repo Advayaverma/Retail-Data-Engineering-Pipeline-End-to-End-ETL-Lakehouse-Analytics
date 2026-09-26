@@ -64,8 +64,8 @@ class DeltaTable:
         new_version = current_version + 1
         new_schema = list(records[0].keys())
 
-        # 1. Schema Enforcement check
-        if current_version >= 0 and not merge_schema:
+        # 1. Schema Enforcement check (only for appends or incremental writes without merge_schema)
+        if current_version >= 0 and not merge_schema and mode.lower() != "overwrite":
             existing_schema = self._get_schema(current_version)
             if existing_schema and set(new_schema) != set(existing_schema):
                 missing = set(existing_schema) - set(new_schema)
