@@ -8,8 +8,6 @@
 [![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED.svg)](https://www.docker.com/)
 [![Tests Passing](https://img.shields.io/badge/tests-77%2F77%20passed-brightgreen.svg)](tests/)
 
-A production-grade, portfolio-ready Data Engineering project designed specifically for the **Celebal Technologies Data Engineer — Campus Hiring 2027** evaluation.
-
 ---
 
 ## 1. Project Overview & Business Problem
